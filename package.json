@@ -15,9 +15,10 @@
   "author": "Ivan Prokhorets <prohorets.ivan@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/IvanProkh/goit-js-hw-08/issues"
+    "url": "https://github.com/IvanProkh/goit-js-hw-09/issues"
   },
   "dependencies": {
+    "flatpickr": "^4.6.13",
     "modern-normalize": "^1.1.0"
   },
   "devDependencies": {
