@@ -34,6 +34,7 @@ flatpickr('#datetime-picker', options);
 const refs = {
   picker: document.querySelector('#datetime-picker'),
   timer: document.querySelector('.timer'),
+  // field: document.querySelectorAll('.field'),
   start: document.querySelector('[data-start]'),
   days: document.querySelector('[data-days]'),
   hours: document.querySelector('[data-hours]'),
@@ -41,12 +42,15 @@ const refs = {
   seconds: document.querySelector('[data-seconds]'),
 };
 
-refs.timer.style.display = 'flex';
-refs.timer.style.flexDirection = 'row';
-refs.timer.style.justifyContent = 'flex-start';
-refs.timer.style.alignItems = 'center';
+const TIME_IS_NOW = Date.now();
+const isActive = false;
 
-console.dir(refs.timer);
+refs.timer.style.display = 'flex';
+refs.timer.style.justifyContent = 'center';
+refs.timer.style.border = '2px solid #000';
+refs.timer.style.borderRadius = '25%';
+refs.timer.style.marginTop = '20px';
+refs.timer.style.width = '520px';
 
 refs.start.addEventListener('click', onButtonStart);
 refs.picker.addEventListener('input', checkTime);
@@ -55,42 +59,48 @@ refs.start.disabled = true;
 
 function checkTime() {
   const date = new Date(document.querySelector('#datetime-picker').value);
-  const now = new Date();
+  // const now = new Date();
 
-  if (date < now) {
+  if (date < TIME_IS_NOW) {
     Notiflix.Notify.warning('Please choose a date in the future');
     refs.start.disabled = true;
     return;
   }
+
   refs.start.disabled = false;
 }
 
-function addLeadingZero(value) {
-  const value = String(this).padStart(2, '0');
-  return value;
-}
-
-function onButtonStart() {
+function onButtonStart(e) {
   console.log(refs.picker.value);
 
   const date = new Date(refs.picker.value);
-  const now = new Date();
-  let diff = date - now;
-  console.log('~ diff', diff);
-  console.log(convertMs(diff));
-  convertMs(diff);
+  // const now = new Date();
 
-  setInterval(() => {
+  let diff = date - TIME_IS_NOW;
+  console.log('~ diff', diff);
+
+  refs.start.disabled = true;
+  refs.picker.disabled = true;
+
+  const intervalId = setInterval(() => {
+    diff -= 1000;
+    console.log('~ diff', diff);
+    convertMs(diff);
+
     if (diff <= 0) {
-      clearInterval();
+      clearInterval(intervalId);
       return;
     }
-    diff -= 1000;
+
     refs.days.textContent = addLeadingZero(convertMs(diff).days);
     refs.hours.textContent = addLeadingZero(convertMs(diff).hours);
     refs.minutes.textContent = addLeadingZero(convertMs(diff).minutes);
     refs.seconds.textContent = addLeadingZero(convertMs(diff).seconds);
   }, 1000);
+}
+
+function addLeadingZero(value) {
+  return String(value).padStart(2, '0');
 }
 
 function convertMs(ms) {
