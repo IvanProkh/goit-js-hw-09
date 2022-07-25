@@ -45,12 +45,12 @@ const refs = {
 const TIME_IS_NOW = Date.now();
 const isActive = false;
 
-refs.timer.style.display = 'flex';
-refs.timer.style.justifyContent = 'center';
-refs.timer.style.border = '2px solid #000';
-refs.timer.style.borderRadius = '25%';
-refs.timer.style.marginTop = '20px';
-refs.timer.style.width = '520px';
+// refs.timer.style.display = 'flex';
+// refs.timer.style.justifyContent = 'center';
+// refs.timer.style.border = '2px solid #000';
+// refs.timer.style.borderRadius = '25%';
+// refs.timer.style.marginTop = '20px';
+// refs.timer.style.width = '520px';
 
 refs.start.addEventListener('click', onButtonStart);
 refs.picker.addEventListener('input', checkTime);
