@@ -1,26 +1,3 @@
-// *В HTML есть готовая разметка таймера, поля выбора конечной даты и кнопки, при клике по которой таймер должен
-// *запускаться.Добавь минимальное оформление элементов интерфейса.
-
-// *Используй библиотеку flatpickr для того чтобы позволить пользователю кроссбраузерно выбрать конечную дату и время в
-// *одном элементе интерфейса.Для того чтобы подключить CSS код библиотеки в проект, необходимо добавить еще один
-// *импорт, кроме того который описан в документации.
-
-// *Если пользователь выбрал дату в прошлом, покажи window.alert() с текстом "Please choose a date in the future".
-// *Если пользователь выбрал валидную дату (в будущем), кнопка «Start» становится активной.
-// *Кнопка «Start» должа быть не активна до тех пор, пока пользователь не выбрал дату в будущем.
-// *При нажатии на кнопку «Start» начинается отсчет времени до выбранной даты с момента нажатия.
-
-// *При нажатии на кнопку «Start» скрипт должен вычислять раз в секунду сколько времени осталось до указанной даты и
-// *обновлять интерфейс таймера, показывая четыре цифры: дни, часы, минуты и секунды в формате xx: xx: xx: xx.
-
-// *Количество дней может состоять из более чем двух цифр.
-// *Таймер должен останавливаться когда дошел до конечной даты, то есть 00:00:00:00.
-
-// *Функция convertMs() возвращает объект с рассчитанным оставшимся временем до конечной даты. Обрати внимание, что она
-// *не форматирует результат.То есть, если осталось 4 минуты или любой другой составляющей времени, то функция вернет
-// *4, а не 04.В интерфейсе таймера необходимо добавлять 0 если в числе меньше двух символов.Напиши функцию
-// *addLeadingZero(value), которая использует метод метод padStart() и перед отрисовкой интефрейса форматируй значение.
-
 import flatpickr from 'flatpickr';
 import Notiflix from 'notiflix';
 
@@ -47,7 +24,7 @@ const refs = {
 };
 
 const TIME_IS_NOW = Date.now();
-// const isActive = false;z
+// const isActive = false;
 
 // refs.timer.style.display = 'flex';
 // refs.timer.style.justifyContent = 'center';
@@ -62,9 +39,10 @@ refs.picker.addEventListener('input', checkTime);
 refs.start.disabled = true;
 
 function checkTime() {
+  const TIME_IS_NOW = Date.now();
   const date = new Date(document.querySelector('#datetime-picker').value);
   // const now = new Date();
-
+  console.log('~ TIME_IS_NOW', TIME_IS_NOW);
   if (date < TIME_IS_NOW) {
     Notiflix.Notify.warning('Please choose a date in the future');
     refs.start.disabled = true;
@@ -74,7 +52,8 @@ function checkTime() {
   refs.start.disabled = false;
 }
 
-function onButtonStart(e) {
+function onButtonStart() {
+  const TIME_IS_NOW = Date.now();
   const date = new Date(refs.picker.value);
   // const now = new Date();
 
@@ -85,7 +64,7 @@ function onButtonStart(e) {
 
   const intervalId = setInterval(() => {
     diff -= 1000;
-    console.log('Мілісекунд залишилось:', diff);
+    console.log('Milliseconds left:', diff);
     convertMs(diff);
 
     if (diff <= 0) {
