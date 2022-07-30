@@ -22,7 +22,7 @@ function onFormSubmit(e) {
   amount = Number(refs.amount.value);
 
   for (let i = 0; i < amount; i += 1) {
-    delay += step;
+    // delay += step;
     position += 1;
 
     createPromise(position, delay)
@@ -39,12 +39,13 @@ function onFormSubmit(e) {
         console.log(`❌ Rejected promise ${position} in ${delay}ms`);
       });
 
+    delay += step;
     e.target.reset();
   }
 }
 
 function createPromise(position, delay) {
-  const promise = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const shouldResolve = Math.random() > 0.3;
 
     setTimeout(() => {
@@ -55,6 +56,4 @@ function createPromise(position, delay) {
       }
     }, delay);
   });
-
-  return promise;
 }

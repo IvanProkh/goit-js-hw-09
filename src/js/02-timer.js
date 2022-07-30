@@ -14,8 +14,6 @@ flatpickr('#datetime-picker', options);
 
 const refs = {
   picker: document.querySelector('#datetime-picker'),
-  // timer: document.querySelector('.timer'),
-  // field: document.querySelectorAll('.field'),
   start: document.querySelector('[data-start]'),
   days: document.querySelector('[data-days]'),
   hours: document.querySelector('[data-hours]'),
@@ -24,14 +22,6 @@ const refs = {
 };
 
 const TIME_IS_NOW = Date.now();
-// const isActive = false;
-
-// refs.timer.style.display = 'flex';
-// refs.timer.style.justifyContent = 'center';
-// refs.timer.style.border = '2px solid #000';
-// refs.timer.style.borderRadius = '25%';
-// refs.timer.style.marginTop = '20px';
-// refs.timer.style.width = '520px';
 
 refs.start.addEventListener('click', onButtonStart);
 refs.picker.addEventListener('input', checkTime);
@@ -55,7 +45,6 @@ function checkTime() {
 function onButtonStart() {
   const TIME_IS_NOW = Date.now();
   const date = new Date(refs.picker.value);
-  // const now = new Date();
 
   let diff = date - TIME_IS_NOW;
 
