@@ -21,7 +21,7 @@ const refs = {
   seconds: document.querySelector('[data-seconds]'),
 };
 
-const TIME_IS_NOW = Date.now();
+// const TIME_IS_NOW = Date.now();
 
 refs.start.addEventListener('click', onButtonStart);
 refs.picker.addEventListener('input', checkTime);
